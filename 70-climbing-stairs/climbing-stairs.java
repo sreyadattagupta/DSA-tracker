@@ -2,20 +2,20 @@ class Solution {
 
     public int climbStairs(int n) {
 
-        int[] dp = new int[n + 1];
+        int prev = 1;  // if 1 stair, 1 way
+        int prev2 = 2; // if 2 stairs, 2 ways
 
-        Arrays.fill(dp, -1); // fill dp with -1
+        if(n == 1) return prev;
 
-        dp[1] = 1; // if 1 stair, 1 way
+        for(int i = 3; i <= n; i++) {
 
-        if(n == 1) return dp[1];
+            int curr = prev + prev2; // current = previous + previous previous
 
-        dp[2] = 2; // if 2 stairs, 2 ways
+            prev = prev2;            // move previous
+            prev2 = curr;            // move current
 
-        for(int i = 3; i <= n; i++){
-            dp[i] = dp[i - 1] + dp[i - 2]; // current = previous + previous previous
         }
 
-        return dp[n]; // return answer for n stairs
+        return prev2; // answer for n stairs
     }
 }
