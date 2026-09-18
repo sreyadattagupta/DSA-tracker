@@ -6,19 +6,16 @@ class Solution {
 
         Arrays.fill(dp, -1); // fill dp with -1
 
-        return f(n, dp);
-    }
+        dp[1] = 1; // if 1 stair, 1 way
 
-    public int f(int n, int[] dp) {
+        if(n == 1) return dp[1];
 
-        if(n == 1) return 1; // if one stair is left, take 1 step
+        dp[2] = 2; // if 2 stairs, 2 ways
 
-        if(n == 2) return 2; // if two stairs are left, take 1+1 or 2 steps
+        for(int i = 3; i <= n; i++){
+            dp[i] = dp[i - 1] + dp[i - 2]; // current = previous + previous previous
+        }
 
-        if(dp[n] != -1) return dp[n]; // if dp[n] already has an answer, return it
-
-        dp[n] = f(n - 1, dp) + f(n - 2, dp); // calculate answer and store it
-
-        return dp[n]; // return the calculated answer
+        return dp[n]; // return answer for n stairs
     }
 }
